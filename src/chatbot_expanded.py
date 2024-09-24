@@ -1,23 +1,34 @@
 # chatbot_expanded.py
 import streamlit as st
-from streamlit_extras.stoggle import stoggle
+from streamlit_extras.stateful_button import button
 from src.material_game import material_game
 
 
 
 def display_chatbot_expanded():
     st.title(":green-background[What can this chatbot do for you]")
-    st.subheader("Image it's 6 pm. You just finished designing plans for your next big project. You're ready to fall asleep on your nice comfortable bed... but suddently your boss marches him and forces you figure out the necessary materials for the project. Tired and defeated you groan as you work for the next couple hours reaserching and comparing diffrent materials, never getting to go home, never getting to your bed...")
+    st.subheader(''':rainbow[Imagine...] :red[it's 6 pm.] You just :green[finished designing plans for your next big project]. You're ready to fall asleep on your :green[nice comfortable bed...] :red[but suddenly] your boss :red[marches in and forces you figure out the necessary materials for the project.] :blue[Tired] and :violet[defeated] you groan as you work for the next :red[couple hours reaserching and comparing diffrent materials], never getting to go :red[home], never getting to your :red[bed...]''')
     st.write("")
 ##    if st.button("But...",key = game_start):
 ##        st.subheader("This Ai allows you to compare and contrast diffrent materials in minutes.")
 ##        st.subheader("The Ai gives out information about a wide range of materials using the given critera and prompt.")
 ##        st.subheader("For example...")
 ##        material_game()
-    stoggle("But...",
-        '''This Ai allows you to compare and contrast diffrent materials in minutes.
-        The Ai gives out information about a wide range of materials using the given critera and prompt.'''
-            )
+
+
+    if button(":green[But...]", key="button1"):
+        st.subheader("Using this :blue[AI] we can :green[fix all of that]")
+        st.subheader("This :blue[Ai] allows you to :green[compare] and :green[contrast] diffrent materials in :green[seconds]")
+        st.subheader("The :blue[Ai] gives out :green[information] about a wide range of :green[materials] using the given critera and prompt.")
+        if button(":green[For Example...]", key="button2"):
+            material_game()
+            if button("What is the Purpose of the Materials?", key="button3"):
+                st.subheader("Why do :green[doctors] use :orange[stainless steel]")
+                st.subheader("Does :orange[polystyrene foam] have :green[thermal insulation properties?]")
+                st.subheader("Isn't :orange[aluminum] flimsy? How can it be used for :green[Aircraft?]")
+                st.subheader("Lets ask the :blue[AI] for answers")
+                    
+
         
         # companies used materials
         # vn esque

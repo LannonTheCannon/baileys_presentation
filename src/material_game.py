@@ -4,6 +4,7 @@ import streamlit as st
 
 def material_game():
     st.subheader("Guess the best material for each situation!")
+    st.caption("Questions made by the Material Selection AI :thumbsup:")
     # initialize session state variables for the quiz
     if "current_question" not in st.session_state:
         st.session_state.current_question = 0
@@ -44,8 +45,6 @@ def material_game():
             if question["options"].index(answer) == question["correct_answer"]:
                 st.session_state.score += 1
                 st.success("Correct")
-                if st.button("Next"):
-                    pass
 ##                    st.rerun()
             else:
                 st.error(f'Wrong. The correct answer was "{question["options"][question["correct_answer"]]}"')
@@ -53,15 +52,19 @@ def material_game():
                 st.session_state.current_question += 1
             else:
                 st.session_state.quiz_complete = True
+        if st.button("Next"):
+            pass
         if st.button("Skip"):
             st.session_state.current_question += 1
             if st.session_state.current_question > len(quiz_data) -1:
                 st.session_state.current_question = len(quiz_data)
                 st.session_state.quiz_complete = True
 ##            st.rerun()
+\
     else:
         st.success("You completed the quiz!")
         st.write(f'Your score is: {st.session_state.score}/{len(quiz_data)}')
+        
 ##        if st.button("Restart"):
 ##            st.session_state.current_question = 0
 ##            st.session_state.score = 0
