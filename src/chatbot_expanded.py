@@ -22,12 +22,13 @@ def display_chatbot_expanded():
         st.subheader("The :blue[Ai] gives out :green[information] about a wide range of :green[materials] using the given critera and prompt.")
         if button(":green[For Example...]", key="button2"):
             material_game()
-            if button("What is the Purpose of the Materials?", key="button3"):
+            if button(":green[What is the Purpose of these Materials?]", key="button3"):
                 st.subheader("Why do :green[doctors] use :orange[stainless steel]")
                 st.subheader("Does :orange[polystyrene foam] have :green[thermal insulation properties?]")
                 st.subheader("Isn't :orange[aluminum] flimsy? How can it be used for :green[Aircraft?]")
                 st.subheader("Lets ask the :blue[AI] for answers")
-                    
+                if button(":green[Placeholder]", key="button3"):
+                    st.subheader("Conlusion")
 
         
         # companies used materials
