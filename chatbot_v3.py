@@ -6,6 +6,8 @@ import os
 from src.homepage import display_home
 from src.my_project_page import display_my_projects
 from src.chatbot_expanded import display_chatbot_expanded
+from src.contacts import display_contacts
+from src.showcase import display_showcase
 
 # Setup Page
 st.set_page_config(page_title="Bailey Kyle Tang", page_icon = ":skull:", layout="wide")
@@ -95,7 +97,7 @@ def main():
         ":blue-background[My projects]",
         ":red-background[Chatbot]",
         ":green-background[Chatbot explained]",
-        ":violet-background[]",
+        ":violet-background[Contacts]",
         ":rainbow-background[Project Showcase]"
         ]
     selected_section = st.sidebar.radio('',sections)
@@ -105,9 +107,12 @@ def main():
         display_my_projects()
     if selected_section == ":green-background[Chatbot explained]":
         display_chatbot_expanded()
-        
     if selected_section == ":red-background[Chatbot]":
         display_chatbot()
+    if selected_section == ":violet-background[Contacts]":
+        display_contacts()
+    if selected_section == ":rainbow-background[Project Showcase]":
+        display_showcase()
 
 if __name__ == "__main__":
     main()
