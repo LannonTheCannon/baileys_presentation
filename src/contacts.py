@@ -15,11 +15,12 @@ def display_contacts():
             image ="https://cdn.discordapp.com/attachments/960728516104699935/1290466735509471314/8La7Qmwt7iflleveiiMzMzMzMzMz52l4DsCqnoc4aHnchZYHg2h5hIqWh81oeSyPngcY6XnUk5aHYml5fJieB63peSSdNiri8D5N7iB1zKGeB0LqeXSmew1O2TUmSbHsf4FmcCYeLX7yQAAAAASUVORK5CYII.png?ex=66fc904d&is=66fb3ecd&hm=19838d3bf7f743c574983bcebdb2af355b8a4a32de9eaaa84e4e474d5f2338eb&",
             title ="Gmail:",
             text = "epicred1000@gmail.com",
+            url = "https://github.com/EpicRed1000",
             styles={
                 "card":{
                     "width": "300px",
                     "Height": "300px",
-                    "border-radius": "40px"
+                    "border-radius": "40px",
                     }
                 }
         )

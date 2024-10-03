@@ -3,14 +3,17 @@ import streamlit as st
 import openai
 import time
 import os
+from utils import add_image_from_local, change_bg
 from src.homepage import display_home
 from src.my_project_page import display_my_projects
 from src.chatbot_expanded import display_chatbot_expanded
 from src.contacts import display_contacts
 from src.showcase import display_showcase
 
+
 # Setup Page
 st.set_page_config(page_title="Bailey Kyle Tang", page_icon = ":skull:", layout="wide")
+change_bg('./images/ashgray.png')
 ASSISTANT_ID = "asst_I5jUjKMGObw1PnasEbEn2AQ5"
 THREAD_ID = "thread_9vkU15hrjp4L4lQYOLKpabrP"
 
@@ -59,9 +62,10 @@ def get_assistant_response(assistant_id,thread_id, user_input):
 
 # Displaying Chat
 def display_chatbot():
-    st.title(":bricks: Material Selection Ai :bricks:")
+    st.title(":red-background[ :bricks: Material Selection AI :bricks:]")
     st.header("Purpose")
-    st.write("An Ai ment to help mechanical, civil, electerical and any other type of engneering with choosing the right material for their projects.")
+    with st.container(height = 60):
+        st.write("An Ai ment to help mechanical, civil, electerical and any other type of engneering with choosing the right material for their projects.")
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])

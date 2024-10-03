@@ -3,7 +3,7 @@ import streamlit as st
 from streamlit_timeline import st_timeline
 
 def display_home():
-    st.title("Welcome to Bailey Tang's Profile")
+    st.title(":green-background[Welcome to Bailey Tang's Profile]")
     st.caption("Just have fun with it")
     st.write("")
     # about me

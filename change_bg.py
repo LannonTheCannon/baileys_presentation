@@ -11,19 +11,26 @@ def add_bg_from_local(image_file):
         display: flex;
         justify-content: center;
         align-items: center;
-        background-image: url(data:image/{"png"};base64,{encoded_string.decode()});
+        /* background-image: url(data:image/{"png"};base64,{encoded_string.decode()});
         background-size: cover;
         background-repeat: no-repeat
-        background-position: center;
+        background-position: center;*/
         height: auto;
+        background-color: #ABC4AB;
         
+    }}
+
+    [data-testid="stSidebar"] {{
+    background-color: #A39171;
+
+
     }}
     </style>
     """,
     unsafe_allow_html=True
     )
 
-add_bg_from_local('./images/pink_thing.jpg')
+
 
 # text is for the folder path
 # use folder called images for the image
