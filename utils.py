@@ -65,6 +65,42 @@ def change_bg(image_file):
     .st-emotion-cache-135xp1h {{
     background-color: #272838;
     }}
+
+    .st-emotion-cache-xlis0j {{
+    background-color: #272838;
+    }}
+
+    .st-emotion-cache-1247n7e {{
+    background-color: #272838;
+    }}
+
+    .st-emotion-cache-1it2hzq {{
+    background-color: #272838;
+    }}
+
+    .st-emotion-cache-isr5fz {{
+    background-color: #272838;
+    }}
+
+    .st-emotion-cache-1apb2ab {{
+    background-color: #272838;
+    }}
+
+    .st-emotion-cache-46p3ro {{
+    background-color: #272838;
+    }}
+
+    .st-emotion-cache-15hul6a {{
+    background-color: #272838;
+    }}
+
+    .st-emotion-cache-3cfd58 {{
+    background-color: #272838;
+    }}
+
+    .st-emotion-cache-1yahvp0 {{
+    background-color: #272838;
+    }}
     </style>
     """,
     unsafe_allow_html=True

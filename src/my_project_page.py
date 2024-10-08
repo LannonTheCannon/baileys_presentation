@@ -2,10 +2,10 @@
 import streamlit as st
 from streamlit_card import card
 
+
 def display_my_projects():
     st.title(":blue-background[My projects]")
     material_ai, locked_up = st.columns(2)
-
     with material_ai:
         MSA = card(
             title="Material Selection AI",
@@ -21,8 +21,7 @@ def display_my_projects():
                 }
         )
     if MSA:
-        #selected_section = ":red-background[Chatbot]"
-        pass
+        st.switch_page(".\pages\chatbot_v3_standalone.py")
     
     with locked_up:
         LU = card(

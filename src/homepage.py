@@ -88,8 +88,16 @@ def display_home():
 
     st.write("")
 
-    #st.title("What I Can Do For You")
-    
+    st.title("What I Can Do For You")
+    with st.container(height = 130):
+        st.header("Yu-Gi-Oh Deck Building")
+        st.caption("Give me a budget and an hour")
+    with st.container(height = 130):
+        st.header("Coding")
+        st.caption("I'll try my best :sob:")
+    with st.container(height = 130):
+        st.header("Manga Editing")
+        st.caption("Give me a panel and a story")
 
     
 

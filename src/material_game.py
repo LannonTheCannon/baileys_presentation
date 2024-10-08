@@ -3,8 +3,9 @@ import streamlit as st
 
 
 def material_game():
-    st.subheader("Guess the best material for each situation!")
-    st.caption("Questions made by the Material Selection AI :thumbsup:")
+    with st.container(height = 120):
+        st.subheader("Guess the best material for each situation!")
+        st.caption("Questions made by the Material Selection AI :thumbsup:")
     # initialize session state variables for the quiz
     if "current_question" not in st.session_state:
         st.session_state.current_question = 0
