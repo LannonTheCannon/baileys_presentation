@@ -2,10 +2,12 @@
 import streamlit as st
 from streamlit_extras.stateful_button import button
 from src.material_game import material_game
+from utils_pages import change_bg
 
 
 
 def display_chatbot_expanded():
+    change_bg()
     st.title(":green-background[What can this chatbot do for you]")
     with st.container(height = 220):
         st.subheader(''':rainbow[Imagine...] :red[it's 6 pm.] You just :green[finished designing plans for your next big project]. You're ready to fall asleep on your :green[nice comfortable bed...] :red[but suddenly] your boss :red[marches in and forces you figure out the necessary materials for the project.] :blue[Tired] and :violet[defeated] you groan as you work for the next :red[couple hours reaserching and comparing diffrent materials], never getting to go :red[home], never getting to your :red[bed...]''')

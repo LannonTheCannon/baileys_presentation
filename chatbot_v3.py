@@ -13,7 +13,7 @@ from src.showcase import display_showcase
 
 # Setup Page
 st.set_page_config(page_title="Bailey Kyle Tang", page_icon = ":skull:", layout="wide")
-change_bg('./images/ashgray.png')
+##change_bg('./images/ashgray.png')
 ASSISTANT_ID = "asst_I5jUjKMGObw1PnasEbEn2AQ5"
 THREAD_ID = "thread_9vkU15hrjp4L4lQYOLKpabrP"
 
@@ -62,6 +62,7 @@ def get_assistant_response(assistant_id,thread_id, user_input):
 
 # Displaying Chat
 def display_chatbot():
+    change_bg()
     st.title(":red-background[ :bricks: Material Selection AI :bricks:]")
 
     with st.container(height = 135):

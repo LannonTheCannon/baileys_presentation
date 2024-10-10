@@ -1,8 +1,10 @@
 # homepage.py
 import streamlit as st
 from streamlit_timeline import st_timeline
+from utils_pages import change_bg
 
 def display_home():
+    change_bg()
     st.title(":green-background[Welcome to Bailey Tang's Profile]")
     st.caption("Just have fun with it")
     st.write("")
@@ -98,8 +100,6 @@ def display_home():
     with st.container(height = 130):
         st.header("Manga Editing")
         st.caption("Give me a panel and a story")
-
-    
 
     
 
