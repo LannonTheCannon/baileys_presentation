@@ -3,7 +3,7 @@ import streamlit as st
 import openai
 import time
 import os
-from utils import add_image_from_local, change_bg
+from utils_pages import change_bg
 from chatbot_v3 import get_assistant_response, display_chatbot
 
 ASSISTANT_ID = "asst_I5jUjKMGObw1PnasEbEn2AQ5"

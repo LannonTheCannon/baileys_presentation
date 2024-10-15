@@ -1,9 +1,10 @@
 # showcase.py
 import streamlit as st
-
+from utils_pages import change_bg
 
 
 def display_showcase():
+    change_bg()
     st.title(":rainbow-background[Project Showcase]")
     with st.container(height = 200):
         st.subheader("Thanks for listening/reading")

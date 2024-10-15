@@ -4,7 +4,7 @@ import streamlit as st
 
 def material_game():
     with st.container(height = 120):
-        st.subheader("Guess the best material for each situation!")
+        st.subheader(":green[Guess the best material for each situation!]")
         st.caption("Questions made by the Material Selection AI :thumbsup:")
     # initialize session state variables for the quiz
     if "current_question" not in st.session_state:
@@ -37,42 +37,41 @@ def material_game():
     # quiz logic
     if not st.session_state.quiz_complete:
         question = quiz_data[st.session_state.current_question]
-        st.write(f'Question {st.session_state.current_question + 1} of {len(quiz_data)}')
-        st.write(question["question"])
+        with st.container(height=250):
+            st.write(f':green[Question {st.session_state.current_question + 1} of {len(quiz_data)}]')
+            st.write(question["question"])
+            answer = st.radio("Choose your answer", question["options"], key = f'sb_q{st.session_state.current_question}')
 
-        answer = st.radio("Choose your answer", question["options"], key = f'sb_q{st.session_state.current_question}')
-
-        if st.button("Submit Answer",key = "sb_submit"):
-            if question["options"].index(answer) == question["correct_answer"]:
-                st.session_state.score += 1
-                st.success("Correct")
-##                    st.rerun()
-            else:
-                st.error(f'Wrong. The correct answer was "{question["options"][question["correct_answer"]]}"')
-            if st.session_state.current_question < len(quiz_data) - 1:
+        submit_button, next_button, skip_button = st.columns(3)
+        with submit_button:
+            if st.button(":green[Submit Answer]",key = "sb_submit"):
+                if question["options"].index(answer) == question["correct_answer"]:
+                    st.session_state.score += 1
+                    st.success("Correct")
+    ##                    st.rerun()
+                else:
+                    st.error(f'Wrong. The correct answer was "{question["options"][question["correct_answer"]]}"')
+                if st.session_state.current_question < len(quiz_data) - 1:
+                    st.session_state.current_question += 1
+                else:
+                    st.session_state.quiz_complete = True
+        with next_button:
+            if st.button(":green[Next]"):
+                pass
+        with skip_button:
+            if st.button(":green[Skip]"):
                 st.session_state.current_question += 1
-            else:
-                st.session_state.quiz_complete = True
-        if st.button("Next"):
-            pass
-        if st.button("Skip"):
-            st.session_state.current_question += 1
-            if st.session_state.current_question > len(quiz_data) -1:
-                st.session_state.current_question = len(quiz_data)
-                st.session_state.quiz_complete = True
-##            st.rerun()
-\
+                if st.session_state.current_question > len(quiz_data) -1:
+                    st.session_state.current_question = len(quiz_data)
+                    st.session_state.quiz_complete = True
     else:
         st.success("You completed the quiz!")
-        st.write(f'Your score is: {st.session_state.score}/{len(quiz_data)}')
+        st.write(f':green-background[Your score is: {st.session_state.score}/{len(quiz_data)}]')
         
 ##        if st.button("Restart"):
 ##            st.session_state.current_question = 0
 ##            st.session_state.score = 0
 ##            st.session_state.quiz_complete = False
 ##            st.rerun()
-    st.sidebar.write('''
-______________________________
-''')
-    st.sidebar.write(f'Current score: {st.session_state.score}/{len(quiz_data)}')
+
 

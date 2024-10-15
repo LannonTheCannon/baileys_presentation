@@ -1,8 +1,10 @@
 # contacts.py
 import streamlit as st
 from streamlit_card import card
+from utils_pages import change_bg
 
 def display_contacts():
+    change_bg()
     st.title(":violet-background[Contacts]")
     st.subheader("Here are a few ways to contact me!")
 

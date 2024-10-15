@@ -3,7 +3,7 @@ import streamlit as st
 import openai
 import time
 import os
-from utils import add_image_from_local, change_bg
+from utils_pages import change_bg
 from src.homepage import display_home
 from src.my_project_page import display_my_projects
 from src.chatbot_expanded import display_chatbot_expanded
@@ -13,7 +13,6 @@ from src.showcase import display_showcase
 
 # Setup Page
 st.set_page_config(page_title="Bailey Kyle Tang", page_icon = ":skull:", layout="wide")
-##change_bg('./images/ashgray.png')
 ASSISTANT_ID = "asst_I5jUjKMGObw1PnasEbEn2AQ5"
 THREAD_ID = "thread_9vkU15hrjp4L4lQYOLKpabrP"
 
@@ -65,7 +64,7 @@ def display_chatbot():
     change_bg()
     st.title(":red-background[ :bricks: Material Selection AI :bricks:]")
 
-    with st.container(height = 135):
+    with st.container(height = 150):
         st.header("Purpose")
         st.write("An Ai ment to help mechanical, civil, electerical and any other type of engneering with choosing the right material for their projects.")
     for message in st.session_state.messages:
@@ -113,7 +112,8 @@ def main():
     if selected_section == ":green-background[Chatbot explained]":
         display_chatbot_expanded()
     if selected_section == ":red-background[Chatbot]":
-        display_chatbot()
+        #display_chatbot()
+        pass
     if selected_section == ":violet-background[Contacts]":
         display_contacts()
     if selected_section == ":rainbow-background[Project Showcase]":

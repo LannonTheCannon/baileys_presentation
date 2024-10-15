@@ -61,13 +61,41 @@ def change_bg():
 
     /*Chatbot*/
     
-    .st-emotion-cache-46p3ro {{
+    .st-emotion-cache-1j20h4v {{
     background-color: #272838;
+    }}
+
+    .st-emotion-cache-qdbtli {{
+    background-color: #5D536B;
+    }}
+
+    .st-cp {{
+    background-color: #272838;
+    }}
+
+    .st-emotion-cache-janbn0 {{
+    background-color: #272838;
+    }}
+
+    .st-emotion-cache-4oy321 {{
+    background-color: #272838;
+    }}
+
+    .st-emotion-cache-4zpzjl {{
+    background-color: #DFD9E2;
+    }}
+
+    .st-emotion-cache-jmw8un {{
+    background-color: #53A2BE;
     }}
 
     /*Chatbot_Explained*/
 
-    .st-emotion-cache-yk7at5 {{
+    .st-emotion-cache-15hul6a {{
+    background-color: #5D536B;
+    }}
+
+    .st-emotion-cache-yk7at5{{
     background-color: #272838;
     }}
 
@@ -87,10 +115,22 @@ def change_bg():
     background-color: #272838;
     }}
 
+    /*Material Game*/
+    
     .st-emotion-cache-1it2hzq {{
     background-color: #272838;
     }}
 
+    .st-emotion-cache-15hul6a {{
+    background-color: #272838;
+    }}
+
+    /*Contacts*/
+
+    /*Project Showcase*/
+    .st-emotion-cache-1apb2ab {{
+    background-color: #272838
+    }}
 
     </style>
     """,
