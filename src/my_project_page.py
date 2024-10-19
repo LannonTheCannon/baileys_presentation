@@ -23,7 +23,7 @@ def display_my_projects():
                 }
         )
     if MSA:
-        st.switch_page(".\pages\chatbot_v3_standalone.py")
+        st.switch_page("pages/3_Chatbot.py")
     
     with locked_up:
         LU = card(

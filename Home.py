@@ -12,7 +12,7 @@ from src.showcase import display_showcase
 
 
 # Setup Page
-st.set_page_config(page_title="Bailey Kyle Tang", page_icon = ":skull:", layout="wide")
+st.set_page_config(page_title="Home", page_icon = ":one:", layout="wide")
 ASSISTANT_ID = "asst_I5jUjKMGObw1PnasEbEn2AQ5"
 THREAD_ID = "thread_9vkU15hrjp4L4lQYOLKpabrP"
 
@@ -88,36 +88,17 @@ def display_chatbot():
             message_placeholder.markdown(full_response)
         st.session_state.messages.append({"role":"assistant","content":full_response})
 
-# Display Id
-#st.sidebar.write(f'Assistant ID: {ASSISTANT_ID}')
-#st.sidebar.write(f'Thread ID: {THREAD_ID}')
+with st.sidebar:
+    st.write("")
+    page_back, page_forward = st.columns(2, vertical_alignment="center")
+    with page_forward:
+        if st.button("Next"):
+             st.switch_page("pages/2_My_Projects.py")
 
 
 def main():
-    with st.sidebar:
-        st.title(":orange-background[Navigation]")
-    sections = [
-        ":green-background[Home]", 
-        ":blue-background[My projects]",
-        ":red-background[Chatbot]",
-        ":green-background[Chatbot explained]",
-        ":violet-background[Contacts]",
-        ":rainbow-background[Project Showcase]"
-        ]
-    selected_section = st.sidebar.radio('',sections)
-    if selected_section == ":green-background[Home]":
-        display_home()
-    if selected_section == ":blue-background[My projects]":
-        display_my_projects()
-    if selected_section == ":green-background[Chatbot explained]":
-        display_chatbot_expanded()
-    if selected_section == ":red-background[Chatbot]":
-        #display_chatbot()
-        pass
-    if selected_section == ":violet-background[Contacts]":
-        display_contacts()
-    if selected_section == ":rainbow-background[Project Showcase]":
-        display_showcase()
+    display_home()
+
 
 if __name__ == "__main__":
     main()

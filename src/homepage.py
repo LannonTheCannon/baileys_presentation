@@ -10,7 +10,7 @@ def display_home():
     st.write("")
     # about me
     st.title("About me")
-    general, current, future = st.columns(3)
+    general, current, future = st.columns(3, vertical_alignment="center")
 
     with general:
         st.image("https://cdn.discordapp.com/attachments/960728516104699935/1290470263275786311/bumkiltan-ezgif.com-added-text.jpg?ex=66fc9396&is=66fb4216&hm=9bcfe2dd9c0f81d61bcccd4f4c9eb406f243a4559764ff9f235faa76bfac2f20&")

@@ -51,6 +51,10 @@ def change_bg():
     background-color: #5D536B;
     }}
 
+    .st-emotion-cache-lpgk4i {{
+    background-color: #53A2BE;
+    }}
+
     /*Home_Page*/
     
     .st-emotion-cache-1yahvp0 {{
@@ -69,7 +73,7 @@ def change_bg():
     background-color: #5D536B;
     }}
 
-    .st-cp {{
+    .st-bz {{
     background-color: #272838;
     }}
 
