@@ -71,7 +71,7 @@ def display_home():
     # Featured Projects
     st.title("Featured Projects")
 
-    locked_up, material_ai, kaiba_ai = st.columns(3)
+    locked_up, material_ai, kaiba_ai = st.columns(3, vertical_alignment="center")
 
     with locked_up:
         st.image("https://cdn.discordapp.com/attachments/960728516104699935/1290471140753670266/9k.png?ex=66fc9467&is=66fb42e7&hm=a090c1c919fe0aa1a813789475e5ec7ca18e8ba0b595000bc5106c987958c88c&")
@@ -98,8 +98,8 @@ def display_home():
         st.header("Coding")
         st.caption("I'll try my best :sob:")
     with st.container(height = 130):
-        st.header("Manga Editing")
-        st.caption("Give me a panel and a story")
+        st.header("Something")
+        st.caption("Something")
 
     
 

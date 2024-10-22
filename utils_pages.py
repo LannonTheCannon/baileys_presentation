@@ -63,6 +63,10 @@ def change_bg():
 
     /*My_Projects*/
 
+    .st-emotion-cache-1ut8nx {{
+    background-color: #272838;
+    }}
+
     /*Chatbot*/
     
     .st-emotion-cache-1j20h4v {{
@@ -108,6 +112,10 @@ def change_bg():
     }}
 
     .st-emotion-cache-xlis0j {{
+    background-color: #272838;
+    }}
+
+    .st-emotion-cache-1kp1iq7 {{
     background-color: #272838;
     }}
 

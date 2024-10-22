@@ -5,12 +5,6 @@ import time
 import os
 from utils_pages import change_bg
 from src.homepage import display_home
-from src.my_project_page import display_my_projects
-from src.chatbot_expanded import display_chatbot_expanded
-from src.contacts import display_contacts
-from src.showcase import display_showcase
-
-
 # Setup Page
 st.set_page_config(page_title="Home", page_icon = ":one:", layout="wide")
 ASSISTANT_ID = "asst_I5jUjKMGObw1PnasEbEn2AQ5"
