@@ -2,7 +2,7 @@
 
 import random
 import streamlit as st
-from utils_pages import change_bg
+#from utils_pages import change_bg
 
 
 
@@ -37,7 +37,7 @@ rooms = {
         'up':'parking lot',
         'down':'resturants',
         'left':'construction lot',
-        'right':'graveyard'
+        'right':'graveyard',
         'task':'guessing_game'},
     'resturants':{
         'up':'traffic',
@@ -47,7 +47,7 @@ rooms = {
         'down':'houses'},
     'houses':{
         'up':'graveyard',
-        'left':'resturants'
+        'left':'resturants',
         'right':'car'},
     }
     
@@ -260,4 +260,4 @@ while st.session_state.feeling_brave == True:
         guessing_game()
         
     if current_room == monster_room:
-        check_monster()oe Room Simulator
+        check_monster()
