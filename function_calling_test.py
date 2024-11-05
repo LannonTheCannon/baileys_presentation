@@ -10,13 +10,9 @@ client = openai.OpenAI(api_key=api_key)
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-if "assistant_id" not in st.session_state:
-    st.session_state.assistant_id = ""
-    st.session_state.asssitant_id = "asst_VfgjLDxvMm6GVez3Epzku4TU"
+ASSISTANT_ID = "asst_VfgjLDxvMm6GVez3Epzku4TU"
 
-if "thread_id" not in st.session_state:
-    st.session.state.thread_id = ""
-    st.session_state.thread_id = "thread_ABczMIxnXlYXRpxSlUS5vyqC"
+THREAD_id = "thread_ABczMIxnXlYXRpxSlUS5vyqC"
 def  get_current_tempature(location: str,unit: str) -> str:
     
     return f'75*{unit[0]}'
@@ -36,7 +32,7 @@ def get_assistant_response(assistant_id, thread_id, user_input):
                     "type":"function",
                     "name":"get_current_tempature",
                     "function":{
-                        "description":"Get the current tempature for a specific location",
+                        "description":"Get the current temperature for a specific location",
                         "strict":True,
                         "parameters":{
                             "location":{
@@ -80,7 +76,7 @@ def get_assistant_response(assistant_id, thread_id, user_input):
                 client.beta.threads.runs.submit_tool_outputs(
                     thread_id=thread_id,
                     run_id=run.id,
-                    tool_output=tool_outputs
+                    tool_outputs=tool_outputs
                 )
             time.sleep(1)
         messages = client.beta.threads.messages.list(thread_id=thread_id)
