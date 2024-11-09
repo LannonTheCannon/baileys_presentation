@@ -14,6 +14,8 @@ if "move" not in st.session_state:
     st.session_state.move = ""
 if 'inventory' not in st.session_state:
     st.session_state.inventory =[]
+if "time" not in st.session_state:
+    st.session_state.time = 12
 
 if "events_done" not in st.session_state:
     st.session_state.events_done = []
@@ -40,7 +42,7 @@ rooms = {
     'traffic':{
         'up':'parking lot',
         'down':'resturants',
-        'left':'construction lot',
+        'left':'construction site',
         'right':'graveyard',
         'event':'hoard'},
     'resturants':{
@@ -59,22 +61,30 @@ rooms = {
 def show_intro():
     st.write('''
 
-You are a survior of a zombie apocalypse. There is a strong zombie chasing you.
-You can kill it or escape to your car. Which will you do? 
+You were camping out in the woods when an emergency alert popped up on your phone.
+*EMERGENCY ALERT* PEOPLE ARE BEING INFECTED BY A BRAIN CONTROLING PARASITE
+EVACUATIONS HAVE STARTED
+
+You look on your phone to check your map:
+''')
+    #st.image()
+    st.write('''
+According to the schedule you only have a few hours to get their. You snuff out your fire and pack up your gear.
+After loading up your car you attempt to start it up...
+Unfortunately you had left the lights on inside the car killing the battery.
+You now have to walk to the evacuation point
 
 commands:
-go[up,down,left,right]
-get[item]
-
+go[left,right,up,down]
 ''')
 
 def show_status():
-    st.write("++++++++++++++++++++++++++++++++++++++++++++++++")
-    st.write(f'You are currently in {st.session_state.current_room}')
+    st.write("----------------------------------------------------------------------------------------")
+    st.write(f'You are currently in the {st.session_state.current_room}')
     if  'item' in rooms[st.session_state.current_room]:
         st.write(f"You see a {rooms[st.session_state.current_room]}")
-    st.write(f'Inventory: {st.session_state.inventory}')
-    st.write("++++++++++++++++++++++++++++++++++++++++++++++++")
+    st.write(f'You have :blue-background[{st.session_state.time}] hours left')
+    st.write("----------------------------------------------------------------------------------------")
     if st.session_state.current_room == 'car':
         st.write("You drive away...")
 
@@ -105,18 +115,21 @@ def hoard_event():
 def main():
     show_intro()
     if st.session_state.feeling_brave:
-        show_status()
         st.session_state.move = st.text_input('Enter An Action',key='txt_inpt')
         st.session_state.move = st.session_state.move.lower().split()
-        if st.session_state.move[0] == 'go' :
-            if st.session_state.move[1] in rooms[st.session_state.current_room]:
-                st.session_state.current_room = rooms[st.session_state.current_room][st.session_state.move[1]]
-            else:
-                st.write("you ran into a wall")
+        try:
+            if st.session_state.move[0] == 'go':
+                if st.session_state.move[1] in rooms[st.session_state.current_room]:
+                    st.session_state.current_room = rooms[st.session_state.current_room][st.session_state.move[1]]
+                else:
+                    st.write("Don't get side tracked! Stay on the path!")
+            show_status()
+            st.write(f'{st.session_state.current_room}')
+        except:
+            pass
 
         if st.session_state.current_room == "traffic" and st.session_state.traffic_event == False:
             hoard_event()
-                # FIX NEXT MEETING
 
 if __name__ == "__main__":
     main()

@@ -45,6 +45,8 @@ rooms = {
         'up':'graveyard',
         'left':'resturants',
         'right':'car'},
+    'car':{
+        }
     }
 
 def show_intro():

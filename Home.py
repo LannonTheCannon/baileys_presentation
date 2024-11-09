@@ -3,12 +3,13 @@ import streamlit as st
 import openai
 import time
 import os
+import json
 from utils_pages import change_bg
 from src.homepage import display_home
 # Setup Page
 st.set_page_config(page_title="Home", page_icon = ":one:", layout="wide")
 ASSISTANT_ID = "asst_I5jUjKMGObw1PnasEbEn2AQ5"
-THREAD_ID = "thread_B5sBmmwDBDUIjPIyWjUcLrpz"
+THREAD_ID = "thread_lWWp2BPwARsqPAhGUVrniqPZ"
 
 # Openai Client
 api_key = st.secrets.get("OPENAI_API_KEY") or os.environ.get("OPENAI_API_KEY")
@@ -38,7 +39,7 @@ def get_assistant_response(assistant_id,thread_id, user_input):
         # Thinking
         run = client.beta.threads.runs.create(
             thread_id=thread_id,
-            assistant_id=assistant_id
+            assistant_id=assistant_id,
             tools=[
                     {
                     'type': 'function',
