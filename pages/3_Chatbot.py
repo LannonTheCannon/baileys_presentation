@@ -9,7 +9,7 @@ from Home import get_assistant_response, display_chatbot
 st.set_page_config(page_title="Chatbot", page_icon = ":three", layout="wide")
 
 ASSISTANT_ID = "asst_I5jUjKMGObw1PnasEbEn2AQ5"
-THREAD_ID = "thread_9vkU15hrjp4L4lQYOLKpabrP"
+THREAD_ID = "thread_B5sBmmwDBDUIjPIyWjUcLrpz"
 
 # Openai Client
 api_key = st.secrets.get("OPENAI_API_KEY") or os.environ.get("OPENAI_API_KEY")

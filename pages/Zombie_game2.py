@@ -54,6 +54,7 @@ rooms = {
         'left':'resturants',
         'right':'car'},
     }
+# finish car later
 
 def show_intro():
     st.write('''
@@ -79,7 +80,7 @@ def show_status():
 
 # Events
 def hoard_event():
-    if st.session_state.current_room == "traffic"
+    if st.session_state.current_room == "traffic":
         st.write("You walk in to see a hoard of zombies rampaging across a busy road filled with empty cars")
     st.write("You have to stay silent to sneak pass the huge hoard")
     if "secret_number" not in st.session_state:
@@ -113,8 +114,8 @@ def main():
             else:
                 st.write("you ran into a wall")
 
-        #if st.session_state.current_room == "traffic" and traffic_event == False:
-            #hoard_event()
+        if st.session_state.current_room == "traffic" and st.session_state.traffic_event == False:
+            hoard_event()
                 # FIX NEXT MEETING
 
 if __name__ == "__main__":

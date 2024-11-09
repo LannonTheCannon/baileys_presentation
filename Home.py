@@ -8,7 +8,7 @@ from src.homepage import display_home
 # Setup Page
 st.set_page_config(page_title="Home", page_icon = ":one:", layout="wide")
 ASSISTANT_ID = "asst_I5jUjKMGObw1PnasEbEn2AQ5"
-THREAD_ID = "thread_9vkU15hrjp4L4lQYOLKpabrP"
+THREAD_ID = "thread_B5sBmmwDBDUIjPIyWjUcLrpz"
 
 # Openai Client
 api_key = st.secrets.get("OPENAI_API_KEY") or os.environ.get("OPENAI_API_KEY")
@@ -21,6 +21,9 @@ client = openai.OpenAI(api_key=api_key)
 # Creating Chat
 if "messages" not in st.session_state:
     st.session_state.messages = []
+
+def create_criteria(criteria_list: str)-> str:
+    return f'{criteria_list}'
 
 # responses
 def get_assistant_response(assistant_id,thread_id, user_input):
@@ -36,15 +39,50 @@ def get_assistant_response(assistant_id,thread_id, user_input):
         run = client.beta.threads.runs.create(
             thread_id=thread_id,
             assistant_id=assistant_id
-            )
+            tools=[
+                    {
+                    'type': 'function',
+                    'function': {
+                        'name': 'create_criteria',
+                        'description': 'Create a criteria from a given list',
+                        'parameters': {
+                            'type': 'object',  # Added required type field
+                            'properties': {
+                                'criteria_list': {
+                                    'type': 'string',
+                                    'description': 'A list that the user gives'
+                                }
+                            },
+                            'required': ['criteria_list']
+                        }
+                    }
+                }
+            ]
+        )
         
         # Waiting
         while True:
             run_status = client.beta.threads.runs.retrieve(thread_id=thread_id, run_id=run.id)
             if run_status.status == 'completed':
                 break
+            elif run_status.status == 'requires_action':
+                tool_outputs = []
+                for tool_call in run_status.required_action.submit_tool_outputs.tool_calls:
+                    if tool_call.function.name == 'create_criteria':
+                        arguments = json.loads(tool_call.function.arguments)
+                        criteria = create_criteria(
+                            criteria_list=arguments['criteria_list']
+                        )
+                        tool_outputs.append({
+                            'tool_call_id': tool_call.id,
+                            'output': json.dumps({'criteria': criteria})
+                        })
+                    client.beta.threads.runs.submit_tool_outputs(
+                        thread_id=thread_id,
+                        run_id=run.id,
+                        tool_outputs=tool_outputs  # Fixed parameter name
+                )
             time.sleep(1)
-
         # Responses
         messages = client.beta.threads.messages.list(thread_id=thread_id)
         # Latest Response
