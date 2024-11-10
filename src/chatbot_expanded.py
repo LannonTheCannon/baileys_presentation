@@ -12,13 +12,6 @@ def display_chatbot_expanded():
     with st.container(height = 220):
         st.subheader(''':rainbow[Imagine...] :red[it's 6 pm.] You just :green[finished designing plans for your next big project]. You're ready to fall asleep on your :green[nice comfortable bed...] :red[but suddenly] your boss :red[marches in and forces you figure out the necessary materials for the project.] :blue[Tired] and :violet[defeated] you groan as you work for the next :red[couple hours reaserching and comparing diffrent materials], never getting to go :red[home], never getting to your :red[bed...]''')
     st.write("")
-##    if st.button("But...",key = game_start):
-##        st.subheader("This Ai allows you to compare and contrast diffrent materials in minutes.")
-##        st.subheader("The Ai gives out information about a wide range of materials using the given critera and prompt.")
-##        st.subheader("For example...")
-##        material_game()
-
-
     if button(":green[But...]", key="button1"):
         with st.container(height = 230):
             st.subheader("Using this :blue[AI] we can :green[fix all of that]")
@@ -36,18 +29,3 @@ def display_chatbot_expanded():
                     with st.container(height = 180):
                         st.subheader("This :blue[AI] has been designed to help solve any questions and problems about materials")
                         st.subheader("From rubber to titanium this :blue[AI] will help you find the best material for you")
-
-        
-        # companies used materials
-        # vn esque
-        # have emebeded chat
-    #if st.button("Really?"):
-        #st.subheader("")
-        
-    # stories (I wanted to know if [HOOK]. Use code as CD explain with CM, )
-    # pictures
-
-
-    # st.title("company")
-    # yamah clarients use grenadilla wood save for next one
-    

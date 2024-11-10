@@ -3,6 +3,7 @@ import streamlit as st
 from utils_pages import change_bg
 
 
+
 def display_showcase():
     change_bg()
     st.title(":rainbow-background[Project Showcase]")
