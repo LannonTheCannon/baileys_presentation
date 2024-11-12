@@ -15,6 +15,7 @@ if "move" not in st.session_state:
     
 if 'inventory' not in st.session_state:
     st.session_state.inventory =[]
+    
 if "time" not in st.session_state:
     st.session_state.time = 12
 
@@ -96,25 +97,34 @@ def hoard_event():
     st.write("You have to stay silent to sneak pass the huge hoard")
     if "secret_number" not in st.session_state:
         st.session_state.secret_number = random.randint(1,40)
+    if "user_number" not in st.session_state:
+        st.session_state.user_number = 0
     st.session_state.event_guesses = 8
     st.write('Pick a number between 1 and 40 to stay silent')
+    if "traffic_count" not in st.session_state:
+        st.session_state.traffic_count = 0
+    st.session_state.user_number = st.number_input("Enter a number",key=f'num_inpt{st.session_state.traffic_count}')
 
-    while st.session_state.event_guesses < 0:
-        try:
-            if st.session_state.feeling_brave:
-                st.session_state.move = st.session_state.move
-                if st.session_state.move[0] > st.session_state.secret_number:
-                    st.write(f"The number is too high! {st.session_state.event_guesses} steps before they hear you!")
-                elif st.session_state.move[0] < st.session_state.secret_number:
-                    st.write(f"The number is too low! {st.session_state.event_guesses} steps before they hear you!")
-                elif st.session_state.move[0] == st.session_state.secret_number:
-                    st.write("You sneaked pass the hoard of zombies! Lucky you!")
-                    st.session_state.traffic_event = True
-                else:
-                    st.write('Please Enter a number')
-        except:
-            st.write("error ")
-        
+    def while_hoard():
+        st.session_state.move = ""
+        st.session_state.user_number = st.number_input("Enter a number",key=f'num_inpt{st.session_state.traffic_count}')
+        if st.session_state.traffic_event == False and st.session_state.traffic_count < 7:
+            if st.session_state.user_number == 0:
+                pass
+            elif st.session_state.user_number > st.session_state.secret_number:
+                st.write(f"The number is too high! {st.session_state.event_guesses} steps before they hear you!")
+                st.session_state.event_guesses -= 1
+            elif st.session_state.user_number < st.session_state.secret_number:
+                st.write(f"The number is too low! {st.session_state.event_guesses} steps before they hear you!")
+                st.session_state.event_guesses -= 1
+            elif st.session_state.user_number == st.session_state.secret_number:
+                st.write("You sneaked pass the hoard of zombies! Lucky you!")
+                st.session_state.traffic_event = True
+                return 
+            else:
+                st.write('Please Enter a number')
+        st.session_state.traffic_count += 1
+        while_hoard()
 
 
 def main():
