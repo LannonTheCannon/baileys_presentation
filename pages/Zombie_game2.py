@@ -95,36 +95,37 @@ def hoard_event():
     if st.session_state.current_room == "traffic":
         st.write("You walk in to see a hoard of zombies rampaging across a busy road filled with empty cars")
     st.write("You have to stay silent to sneak pass the huge hoard")
+    
     if "secret_number" not in st.session_state:
         st.session_state.secret_number = random.randint(1,40)
-    if "user_number" not in st.session_state:
-        st.session_state.user_number = 0
-    st.session_state.event_guesses = 8
-    st.write('Pick a number between 1 and 40 to stay silent')
-    if "traffic_count" not in st.session_state:
-        st.session_state.traffic_count = 0
-    st.session_state.user_number = st.number_input("Enter a number",key=f'num_inpt{st.session_state.traffic_count}')
 
-    def while_hoard():
-        st.session_state.move = ""
-        st.session_state.user_number = st.number_input("Enter a number",key=f'num_inpt{st.session_state.traffic_count}')
-        if st.session_state.traffic_event == False and st.session_state.traffic_count < 7:
-            if st.session_state.user_number == 0:
-                pass
-            elif st.session_state.user_number > st.session_state.secret_number:
-                st.write(f"The number is too high! {st.session_state.event_guesses} steps before they hear you!")
-                st.session_state.event_guesses -= 1
-            elif st.session_state.user_number < st.session_state.secret_number:
-                st.write(f"The number is too low! {st.session_state.event_guesses} steps before they hear you!")
-                st.session_state.event_guesses -= 1
-            elif st.session_state.user_number == st.session_state.secret_number:
+    if "guesses_remaining" not in st.session_state:
+        st.session_state.guesses_remaining = 8
+
+    if "game_over" not in st.session_state:
+        st.session_state.game_over = False
+    
+    st.write('Pick a number between 1 and 40 to stay silent')
+    st.write(f'You currently have {st.session_state.guesses_remaining}')
+
+    guess = st.number_input("Enter a number",min_value=1,max_value=40, key=f'hoard_guess')
+
+    if st.button("Make Your Move",key="guess_button"):
+        if not st.session_state.game_over:
+            if guess == st.session_state.secret_number:
                 st.write("You sneaked pass the hoard of zombies! Lucky you!")
                 st.session_state.traffic_event = True
-                return 
+                st.session_state.game_over = True
             else:
-                st.write('Please Enter a number')
-        st.session_state.traffic_count += 1
-        while_hoard()
+                st.session_state.guesses_remaining -= 1
+                if guess > st.session_state.secret_number:
+                    st.write(f"The number is too high! {st.session_state.event_guesses} steps before they hear you!")
+                else:
+                    st.write(f"The number is too low! {st.session_state.event_guesses} steps before they hear you!")
+                if st.session_state.guesses_remaining <= 0:
+                    st.write('You ran out of guesses') # fill out later
+                    st.session_state.game_over = True
+                    st.session_state.feeling_brave = False
 
 
 def main():
@@ -143,8 +144,17 @@ def main():
         except:
             pass
 
-        if st.session_state.current_room == "traffic" and st.session_state.traffic_event == False:
+        if st.session_state.current_room == "traffic" and not st.session_state.traffic_event:
             hoard_event()
+            if st.session_state.traffic_event:
+                if st.button("Continue Your Journey"):
+                    if "secret_number" in st.session_state:
+                        del st.session_state.secret_number
+                    if "guesses_remaining" in st.session_state:
+                        del st.session_state.guesses_remaining
+                    if "game_over" in st.session_state:
+                        del st.session_state.game_over
+                    st.rerun()
 
 if __name__ == "__main__":
     main()
