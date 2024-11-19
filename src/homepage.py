@@ -98,9 +98,9 @@ def display_home():
     with st.container(height = 130):
         st.header("Coding")
         st.caption("I'll try my best :sob:")
-##    with st.container(height = 130):
-##        st.header("Something")
-##        st.caption("Something")
+    with st.container(height = 130):
+        st.header("Music")
+        st.caption("something")
 
     
 
