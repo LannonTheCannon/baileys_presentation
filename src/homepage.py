@@ -14,7 +14,7 @@ def display_home():
 
     with general:
         st.image("./images/Homepage_me.jpg", width=250)
-        st.write("My name is Bailey Tang and I am 14 years old, I like card games, and band/music")
+        st.write("My name is Bailey Tang and I am 14 years old, I like card games, and band/music (0.5% of Hamilton Listeners October 2024)")
     with current:
         st.image("./images/Homepage_marching.jpg",width=275)
         st.write("I'm in school studying computer science and practicing for marching band (I play clarinet)")
@@ -29,6 +29,7 @@ def display_home():
         {"content":"Started Scratch","start":"2019-9-26"},
         {"content":"Started Python Coding","start":"2023-10-11"},
         {"content":"SMS Jazz Band Solo","start":"2024-5-21"},
+        {"content":"WHS Marching Competition","start":"2024-11-16"},
         {"content":"Graduate","start":"2028"},
         {"content":"Join MIT","start":"2028-8-15"}
 
