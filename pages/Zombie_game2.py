@@ -13,52 +13,73 @@ if "feeling_brave" not in st.session_state:
 if "move" not in st.session_state:
     st.session_state.move = ""
     
-if 'inventory' not in st.session_state:
-    st.session_state.inventory =[]
-    
 if "time" not in st.session_state:
     st.session_state.time = 12
-
-if "events_done" not in st.session_state:
-    st.session_state.events_done = []
 
 if "traffic_event" not in st.session_state:
     st.session_state.traffic_event = False
 
-if "event_guesses" not in st.session_state:
-    st.session_state.hoard_guesses = 0
-
 rooms = {
     'Camp Goodman':{
-        'right':'Drytron Mall'},
+        'right':'Drytron Mall',
+        'description':"yada yada",
+        'image':"./images/Contacts_github.png"},
     'Drytron Mall':{
         'left':'Camp Goodman',
         'right':'parking lot',
-        'down':'construction site'},
+        'down':'Amazement Land',
+        'description':"yada yada",
+        'image':"./images/Contacts_github.png"},
     'parking lot':{
         'left':'Drytron Mall',
-        'down':'traffic'},
-    'construction site':{
+        'down':'The Suburbs',
+        'description':"yada yada",
+        'image':"./images/Contacts_github.png"},
+    'Amazement Land':{
         'up':'Drytron Mall',
-        'right':'traffic'},
-    'traffic':{
+        'right':'The Suburbs',
+        'description':"yada yada",
+        'image':"./images/Contacts_github.png"},
+    'The Suburbs':{
         'up':'parking lot',
-        'down':'resturants',
-        'left':'construction site',
-        'right':'hospital',
-        'event':'hoard'},
-    'resturants':{
-        'up':'traffic',
-        'right':'houses'},
-    'hospital':{
-        'left':'traffic',
-        'down':'houses'},
-    'houses':{
-        'up':'hospital',
-        'left':'resturants',
-        'right':'car'},
+        'down':'Schuyler\'s Seaside Saloon',
+        'left':'Amazement Land',
+        'right':'Vigil Hospital',
+        'description':"yada yada",
+        'image':"./images/Contacts_github.png"},
+    'Schuyler\'s Seaside Saloon':{
+        'up':'The Suburbs',
+        'right':'Easy Apartment',
+        'description':"yada yada",
+        'image':"./images/Contacts_github.png"},
+    'Vigil Hospital':{
+        'left':'The Suburbs',
+        'down':'Easy Apartment',
+        'description':"yada yada",
+        'image':"./images/Contacts_github.png"},
+    'Easy Apartment':{
+        'up':'Vigil Hospital',
+        'left':'Schuyler\'s Seaside Saloon',
+        'right':'BKT Airport',
+        'description':"yada yada",
+        'image':"./images/Contacts_github.png"},
+    'BKT Airport':{
+        'left':'Easy Apartment',
+        'description':"yada yada",
+        'image':"./images/Contacts_github.png"}
     }
 # finish car later
+
+def show_status():
+    st.write("----------------------------------------------------------------------------------------")
+    st.write(f'You are currently in the {st.session_state.current_room}')
+    st.image(f'{rooms[st.session_state.current_room]["image"]}')
+    st.write(f'{rooms[st.session_state.current_room]["description"]}')
+    st.write(f'You have :blue-background[{st.session_state.time}] hours left')
+    st.write("----------------------------------------------------------------------------------------")
+    if st.session_state.current_room == 'BKT Airport':
+        st.write("You drive away...")
+
 
 def show_intro():
     st.write('''
@@ -79,16 +100,9 @@ You now have to walk to the evacuation point
 commands:
 go[left,right,up,down]
 ''')
+    #show_status()
 
-def show_status():
-    st.write("----------------------------------------------------------------------------------------")
-    st.write(f'You are currently in the {st.session_state.current_room}')
-    if  'item' in rooms[st.session_state.current_room]:
-        st.write(f"You see a {rooms[st.session_state.current_room]}")
-    st.write(f'You have :blue-background[{st.session_state.time}] hours left')
-    st.write("----------------------------------------------------------------------------------------")
-    if st.session_state.current_room == 'car':
-        st.write("You drive away...")
+
 
 # Events
 def hoard_event():
@@ -116,7 +130,7 @@ def hoard_event():
     st.write("You walk in to see a hoard of zombies rampaging across a busy road filled with empty cars")    
     st.write("You have to stay silent to sneak pass the huge hoard")
     st.write('Pick a number between 1 and 40 to stay silent')
-    st.write(f'You currently have {game_state["guesses_remaining"]}')
+    st.write(f'You currently have {game_state["guesses_remaining"]} guesses remaing and :blue-background[{st.session_state.time}]')
 
     if game_state["message"]:
         if "success" in game_state["message"]:
@@ -140,6 +154,12 @@ def hoard_event():
                     game_state["show_transition"] = True
                 else:
                     game_state["guesses_remaining"] -= 1
+                    st.session_state.time -= 1
+                    if st.session_state.time == 0 and not st.session_state.current_room == "BKT Airport":
+                        lose()
+                        game_state["message"] = "loss"
+                        game_state["game_active"] = False
+                        return 
                     if game_state["guesses_remaining"] <= 0:
                         game_state["message"] = "loss"
                         game_state["game_active"] = False
@@ -152,16 +172,41 @@ def hoard_event():
                 show_status()
     return not game_state["game_active"] and not game_state["show_transition"]
 
+def survivor_event():
+    if "survivor_game_state" not in st.session_state:
+        st.session_state.survivor_game_state = {
+                "save_cost":random.randint(1,3),
+                "game_active": True,
+                "survivor_name": random.randint(0,5), # make a dictionary with names of people 
+                "show_transition": False
+            }
+    game_state = st.session_state.survivor_game_state
+
+    # list of names
+
+    #survior_names{}
+    
+
+
+
+def lose():
+    st.write("You lose")
+    st.session_state.feeling_brave = False
+    return 
+
+
 def main():
     if "game_initialized" not in st.session_state:
         st.session_state.game_initialized = True
     show_intro()
     
     if st.session_state.feeling_brave:
-        if st.session_state.current_room == "traffic" and not st.session_state.traffic_event:
+        if st.session_state.current_room == "The Suburbs" and not st.session_state.traffic_event:
             can_move = hoard_event()
             if not can_move:
                 return
+
+            
             
         st.session_state.move = st.text_input("Enter an Action", key="txt_input")
         st.session_state.move = st.session_state.move.lower().split()            
@@ -170,7 +215,9 @@ def main():
                 if st.session_state.move[1] in rooms[st.session_state.current_room]:
                     st.session_state.current_room = rooms[st.session_state.current_room][st.session_state.move[1]]
                     st.session_state.time -= 1
-                    
+                    if st.session_state.time == 0 and not st.session_state.current_room == "BKT Airport":
+                        lose()
+                        return 
                 else:
                     st.write("Don't get side tracked! Stay on the path!")
                     
@@ -178,7 +225,7 @@ def main():
             st.write(f'{st.session_state.current_room}')
         except:
             pass
-        if st.session_state.current_room == "traffic" and not st.session_state.traffic_event:
+        if st.session_state.current_room == "The Suburbs" and not st.session_state.traffic_event:
             can_move = hoard_event()
             if not can_move:
                 return
