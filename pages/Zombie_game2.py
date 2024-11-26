@@ -40,6 +40,8 @@ rooms = {
         'left':'Camp Goodman',
         'right':'parking lot',
         'down':'Amazement Land',
+        'survivor': 'Name1',
+        'survivor_event': True ,
         'description':"yada yada",
         'image':"./images/Contacts_github.png"},
     'parking lot':{
@@ -187,13 +189,13 @@ def hoard_event():
 # survivor event
 
 def survivor_event():
-    if "survivor_name_list" not in st.session_state:
-        st.session_state.surivor_name_list = ["name1","name2","name3","name4","name5"]
+##    if "survivor_name_list" not in st.session_state:
+##        st.session_state.survivor_name_list = ["name1","name2","name3","name4","name5"]
     if "survivor_game_state" not in st.session_state:
         st.session_state.survivor_game_state = {
                 "save_cost":random.randint(1,3),
                 "game_active": True,
-                "survivor_name": random.choice(st.session_state.survivor_name_list),
+                "survivor_name": rooms[st.session_state.current_room]["survivor"],
                 "show_transition": False
             }
     game_state = st.session_state.survivor_game_state
@@ -203,26 +205,31 @@ def survivor_event():
         if st.button("continue on"):
             st.session_state.survivor_event = True
         return False
+    
     st.write("You see a survivor on the street")
-    del st.session_state.survivor_name_list[game_state["survivor_name"]]
+    st.write(f'{game_state["survivor_name"]}')
+    st.session_state.current_room["survivor_event"] = False
+    st.write(f'{st.session_state.current_room["survivor_event"]}')
+    
+##    st.session_state.survivor_name_list.remove(game_state["survivor_name"])
 
-    if game_state["survivor_name"] == "name1":
-        st.write("backstory")
-
-    elif game_state["survivor_name"] == "name2":
-        st.write("backstory")
-        
-    elif game_state["survivor_name"] == "name3":
-        st.write("backstory")
-
-    elif game_state["survivor_name"] == "name4":
-        st.write("backstory")
-
-    elif game_state["survivor_name"] == "name5":
-        st.write("backstory")
-    else:
-        st.error("error")
-        return
+##    if game_state["survivor_name"] == "name1":
+##        st.write("backstory")
+##
+##    elif game_state["survivor_name"] == "name2":
+##        st.write("backstory")
+##        
+##    elif game_state["survivor_name"] == "name3":
+##        st.write("backstory")
+##
+##    elif game_state["survivor_name"] == "name4":
+##        st.write("backstory")
+##
+##    elif game_state["survivor_name"] == "name5":
+##        st.write("backstory")
+##    else:
+##        st.error("error")
+##        return
 
     col1, col2 = st.columns(2)
 
@@ -263,10 +270,15 @@ def main():
             if not can_move:
                 return
 
-        if (st.session_state.current_room == "Drytron Mall" or st.session_state.current_room == "Vigil Hospital" or st.session_state.current_room == "Easy Apartment") and not st.session_state.survivor_event:
-            can_move = survivor_event()
-            if not can_move:
-                return
+##        if (st.session_state.current_room == "Drytron Mall" or st.session_state.current_room == "Virgil Hospital" or st.session_state.current_room == "Easy Apartment") and not st.session_state.survivor_event:
+##            can_move = survivor_event()
+##            if not can_move:
+##                return
+
+        if st.session_state.current_room == "Drytron Mall": #and not st.session_state.survivor_event:
+            st.write(f'{rooms["Drytron Mall"]["survivor"]}')
+            st.write(f'{rooms["Drytron Mall"]["survivor_event"]}')
+            rooms["Drytron Mall"]["survivor_event"] = False
 
             
             
@@ -284,7 +296,7 @@ def main():
                     st.write("Don't get side tracked! Stay on the path!")
                     
             show_status()
-            st.write(f'{st.session_state.current_room}')
+##            st.write(f'{st.session_state.current_room}')
         except:
             pass
         if st.session_state.current_room == "The Suburbs" and not st.session_state.traffic_event:
@@ -292,10 +304,14 @@ def main():
             if not can_move:
                 return
             
-        if (st.session_state.current_room == "Drytron Mall" or st.session_state.current_room == "Vigil Hospital" or st.session_state.current_room == "Easy Apartment") and not st.session_state.survivor_event:
-            can_move = survivor_event()
-            if not can_move:
-                return
+##        if (st.session_state.current_room == "Drytron Mall" or st.session_state.current_room == "Vigil Hospital" or st.session_state.current_room == "Easy Apartment") and not st.session_state.survivor_event:
+##            can_move = survivor_event()
+##            if not can_move:
+##                return
+##            if st.session_state.current_room == "Drytron Mall": #and not st.session_state.survivor_event:
+##                st.write(f'{st.session_state.current_room["Drytron Mall"]["survivor"]}')
+##                st.write(f'{st.session_state.current_room["Drytron Mall"]["survivor_event"]}')
+##                st.session_state.current_room["Drytron Mall"]["survivor_event"] = False
 
 if __name__ == "__main__":
     main()
