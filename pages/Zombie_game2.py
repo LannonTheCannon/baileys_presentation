@@ -1,4 +1,8 @@
 # Zombie_game2.py
+
+# What increases in value the less you have?
+# FRIENDS! 
+
 #PAGES
 import random
 import streamlit as st
