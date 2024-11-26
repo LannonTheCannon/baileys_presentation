@@ -177,7 +177,7 @@ def survivor_event():
         st.session_state.survivor_game_state = {
                 "save_cost":random.randint(1,3),
                 "game_active": True,
-                "survivor_name": random.randint(0,5), # make a dictionary with names of people 
+                "survivor_name": random.randint(0,5), # make a dictionary with names of people RANDOM CHOICE
                 "show_transition": False
             }
     game_state = st.session_state.survivor_game_state
