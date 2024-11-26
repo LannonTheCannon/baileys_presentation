@@ -185,7 +185,7 @@ def survivor_event():
         st.session_state.survivor_game_state = {
                 "save_cost":random.randint(1,3),
                 "game_active": True,
-                "survivor_name": random.choice(st.survivor_name_list)
+                "survivor_name": random.choice(st.survivor_name_list),
                 "show_transition": False
             }
     game_state = st.session_state.survivor_game_state
@@ -225,11 +225,11 @@ def survivor_event():
             game_state["game_active"] = False
             game_state["show_transition"] = True
 
-        with col1:
-        if st.button("Leave the survivor", key = "leave"):
-            st.write("You left them")
-            game_state["game_active"] = False
-            game_state["show_transition"] = True
+        with col2:
+            if st.button("Leave the survivor", key = "leave"):
+                st.write("You left them")
+                game_state["game_active"] = False
+                game_state["show_transition"] = True
 
     st.session_state.zombie_game_state = game_state
     st.rerun()
@@ -251,6 +251,11 @@ def main():
     
     if st.session_state.feeling_brave:
         if st.session_state.current_room == "The Suburbs" and not st.session_state.traffic_event:
+            can_move = hoard_event()
+            if not can_move:
+                return
+
+        if (st.session_state.current_room == "Drytron Mall" or st.session_state.current_room == "Vigil Hospital" or st.session_state.current_room == "Easy Apartment") and not st.session_state.survivor_event:
             can_move = hoard_event()
             if not can_move:
                 return
@@ -279,7 +284,7 @@ def main():
             if not can_move:
                 return
             
-        if (st.session_state.current_room == "Drytron Mall")and not st.session_state.traffic_event:
+        if (st.session_state.current_room == "Drytron Mall" or st.session_state.current_room == "Vigil Hospital" or st.session_state.current_room == "Easy Apartment") and not st.session_state.survivor_event:
             can_move = hoard_event()
             if not can_move:
                 return
