@@ -180,12 +180,12 @@ def hoard_event():
 
 def survivor_event():
     if "survivor_name_list" not in st.session_state:
-        st.surivor_name_list = ["name1","name2","name3","name4","name5"]
+        st.session_state.surivor_name_list = ["name1","name2","name3","name4","name5"]
     if "survivor_game_state" not in st.session_state:
         st.session_state.survivor_game_state = {
                 "save_cost":random.randint(1,3),
                 "game_active": True,
-                "survivor_name": random.choice(st.survivor_name_list),
+                "survivor_name": random.choice(st.session_state.survivor_name_list),
                 "show_transition": False
             }
     game_state = st.session_state.survivor_game_state
@@ -256,7 +256,7 @@ def main():
                 return
 
         if (st.session_state.current_room == "Drytron Mall" or st.session_state.current_room == "Vigil Hospital" or st.session_state.current_room == "Easy Apartment") and not st.session_state.survivor_event:
-            can_move = hoard_event()
+            can_move = survivor_event()
             if not can_move:
                 return
 
@@ -285,7 +285,7 @@ def main():
                 return
             
         if (st.session_state.current_room == "Drytron Mall" or st.session_state.current_room == "Vigil Hospital" or st.session_state.current_room == "Easy Apartment") and not st.session_state.survivor_event:
-            can_move = hoard_event()
+            can_move = survivor_event()
             if not can_move:
                 return
 
