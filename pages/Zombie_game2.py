@@ -3,6 +3,10 @@
 # What increases in value the less you have?
 # FRIENDS! 
 
+# one night a ninja and a samurai are on a boat
+# the ninja and the samurai get on a life raft
+# who dies
+
 #PAGES
 import random
 import streamlit as st
