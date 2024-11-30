@@ -41,6 +41,7 @@ rooms = {
         'right':'parking lot',
         'down':'Amazement Land',
         'survivor': 'Drew',
+        'survivor_event': True,
         'description':"You walk past the empty stalls of the once popular mall.",
         'image':"./images/Drytronmall1.jpg"},
     'parking lot':{
@@ -199,21 +200,26 @@ def survivor_event():
                 "save_cost":random.randint(1,3), # the amount it takes to save them
                 "game_active": True,
                 "survivor_name": rooms[st.session_state.current_room]["survivor"],
-                "show_transition": False,
-                "survivor_event": True
+                "show_transition": False
             }
     game_state = st.session_state.survivor_game_state
 
     if game_state["show_transition"]:
-        st.write("Good job ") # Fill out later
+        st.write("Good job saving the survivor")
         if st.button("continue on"):
+            rooms[st.session_state.current_room]["survivor_event"]
             st.session_state.survivor_event = True
         return False
-    st.write(f'{game_state["survivor_event"]}')
-    st.write("You see a survivor on the street")
-    st.write(f'{game_state["survivor_name"]}')
-    game_state["survivor_event"] = False
-    st.write(f'{game_state["survivor_event"]}')
+
+    st.write("You see a survivor wandering")
+    st.write(f'You encounter {game_state["survivor_name"]}')
+    
+        
+##    st.write(f'{game_state["survivor_event"]}')
+##    st.write("You see a survivor on the street")
+##    st.write(f'{game_state["survivor_name"]}')
+##    game_state["survivor_event"] = False
+##    st.write(f'{game_state["survivor_event"]}')
     #st.write(f'{rooms[st.session_state.current_room]["survivor_event"]}')
     
 ##    st.session_state.survivor_name_list.remove(game_state["survivor_name"])
@@ -236,14 +242,15 @@ def survivor_event():
 ##        st.error("error")
 ##        return
 
-    col1, col2 = st.columns(2)
+    if game_state["game_active"]:
+        col1, col2 = st.columns(2)
 
-    with col1:
-        if st.button("Save the survivor", key = "save"):
-            st.write("You saved them")
-            st.session_state.time -= game_state["save_cost"]
-            game_state["game_active"] = False
-            game_state["show_transition"] = True
+        with col1:
+            if st.button("Save the survivor", key = "save"):
+                st.write("You saved them")
+                st.session_state.time -= game_state["save_cost"]
+                game_state["game_active"] = False
+                game_state["show_transition"] = True
 
         with col2:
             if st.button("Leave the survivor", key = "leave"):
@@ -251,10 +258,15 @@ def survivor_event():
                 game_state["game_active"] = False
                 game_state["show_transition"] = True
 
-    st.session_state.zombie_game_state = game_state
-    st.rerun()
-    show_status()
+            st.session_state.suvivor_game_state = game_state
+            st.rerun()
+            show_status()
     return not game_state["game_active"] and not game_state["show_transition"]
+
+##    st.session_state.zombie_game_state = game_state
+##    st.rerun()
+##    show_status()
+##    return not game_state["game_active"] and not game_state["show_transition"]
 
 
 
@@ -270,10 +282,10 @@ def main():
     show_intro()
     
     if st.session_state.feeling_brave:
-        if st.session_state.current_room == "The Suburbs" and not st.session_state.traffic_event:
-            can_move = hoard_event()
-            if not can_move:
-                return
+##        if st.session_state.current_room == "The Suburbs" and not st.session_state.traffic_event:
+##            can_move = hoard_event()
+##            if not can_move:
+##                return
 
 ##        if (st.session_state.current_room == "Drytron Mall" or st.session_state.current_room == "Virgil Hospital" or st.session_state.current_room == "Easy Apartment") and not st.session_state.survivor_event:
 ##            can_move = survivor_event()
@@ -314,15 +326,25 @@ def main():
 ##            st.write(f'{st.session_state.current_room}')
         except:
             pass
+        
         if st.session_state.current_room == "The Suburbs" and not st.session_state.traffic_event:
             can_move = hoard_event()
             if not can_move:
                 return
 
+        if st.session_state.current_room == "Drytron Mall" and not st.session_state.survivor_event:
+            can_move = survivor_event()
+            if not can_move:
+                return
+            
+##        if st.session_state.current_room in rooms and "survivor_event" in rooms[st.session_state.current_room] and rooms[st.session_state.current_room]["survivor_event"]:
+##            can_move = survivor_event()
+##            if not can_move:
+##                return
 
 
-        if st.session_state.current_room in "Drytron Mall": #and not st.session_state.survivor_event:
-            st.write(f'{rooms["Drytron Mall"]["survivor"]}')
+       #if st.session_state.current_room in "Drytron Mall" and not st.session_state.survivor_event:
+            #st.write(f'{rooms["Drytron Mall"]["survivor"]}')
             #st.write(f'{rooms["Drytron Mall"]["survivor_event"]}')
 
             # if the user beats the survivor event
@@ -333,7 +355,7 @@ def main():
 ##            st.write("\"I-is someone there? H-hello?\"")
 ##            st.write("You turn the corner to see a man trapped underneath of a shelf.")
 ##            st.write("\"Oh thank god! Someone that isn\'t a zombie. Can you help me out?\"")
-            survivor_event()
+            #survivor_event()
             
             
 ##        if (st.session_state.current_room == "Drytron Mall" or st.session_state.current_room == "Virgil Hospital" or st.session_state.current_room == "Easy Apartment") and not st.session_state.survivor_event:
