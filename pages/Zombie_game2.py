@@ -40,10 +40,9 @@ rooms = {
         'left':'Camp Goodman',
         'right':'parking lot',
         'down':'Amazement Land',
-        'survivor': 'Name1',
-        'survivor_event': True ,
-        'description':"yada yada",
-        'image':"./images/Contacts_github.png"},
+        'survivor': 'Drew',
+        'description':"You walk past the empty stalls of the once popular mall.",
+        'image':"./images/Drytronmall1.jpg"},
     'parking lot':{
         'left':'Drytron Mall',
         'down':'The Suburbs',
@@ -58,7 +57,7 @@ rooms = {
         'up':'parking lot',
         'down':'Schuyler\'s Seaside Saloon',
         'left':'Amazement Land',
-        'right':'Vigil Hospital',
+        'right':'Virgil Hospital',
         'description':"yada yada",
         'image':"./images/Contacts_github.png"},
     'Schuyler\'s Seaside Saloon':{
@@ -66,15 +65,19 @@ rooms = {
         'right':'Easy Apartment',
         'description':"yada yada",
         'image':"./images/Contacts_github.png"},
-    'Vigil Hospital':{
+    'Virgil Hospital':{
         'left':'The Suburbs',
         'down':'Easy Apartment',
+        'survivor': 'Name2',
+        'survivor_event': True ,
         'description':"yada yada",
         'image':"./images/Contacts_github.png"},
     'Easy Apartment':{
-        'up':'Vigil Hospital',
+        'up':'Virgil Hospital',
         'left':'Schuyler\'s Seaside Saloon',
         'right':'BKT Airport',
+        'survivor': 'Name3',
+        'survivor_event': True ,
         'description':"yada yada",
         'image':"./images/Contacts_github.png"},
     'BKT Airport':{
@@ -193,10 +196,11 @@ def survivor_event():
 ##        st.session_state.survivor_name_list = ["name1","name2","name3","name4","name5"]
     if "survivor_game_state" not in st.session_state:
         st.session_state.survivor_game_state = {
-                "save_cost":random.randint(1,3),
+                "save_cost":random.randint(1,3), # the amount it takes to save them
                 "game_active": True,
                 "survivor_name": rooms[st.session_state.current_room]["survivor"],
-                "show_transition": False
+                "show_transition": False,
+                "survivor_event": True
             }
     game_state = st.session_state.survivor_game_state
 
@@ -205,11 +209,12 @@ def survivor_event():
         if st.button("continue on"):
             st.session_state.survivor_event = True
         return False
-    
+    st.write(f'{game_state["survivor_event"]}')
     st.write("You see a survivor on the street")
     st.write(f'{game_state["survivor_name"]}')
-    st.session_state.current_room["survivor_event"] = False
-    st.write(f'{st.session_state.current_room["survivor_event"]}')
+    game_state["survivor_event"] = False
+    st.write(f'{game_state["survivor_event"]}')
+    #st.write(f'{rooms[st.session_state.current_room]["survivor_event"]}')
     
 ##    st.session_state.survivor_name_list.remove(game_state["survivor_name"])
 
@@ -275,10 +280,20 @@ def main():
 ##            if not can_move:
 ##                return
 
-        if st.session_state.current_room == "Drytron Mall": #and not st.session_state.survivor_event:
-            st.write(f'{rooms["Drytron Mall"]["survivor"]}')
-            st.write(f'{rooms["Drytron Mall"]["survivor_event"]}')
-            rooms["Drytron Mall"]["survivor_event"] = False
+##        if st.session_state.current_room in "Drytron Mall": #and not st.session_state.survivor_event:
+##            st.write(f'{rooms["Drytron Mall"]["survivor"]}')
+##            st.write(f'{rooms["Drytron Mall"]["survivor_event"]}')
+##
+##            # if the user beats the survivor event
+####            rooms["Drytron Mall"]["survivor_event"] = False
+##            # if the user does not beat the survivor event
+##
+####            st.write("You hear someone yelling for help somewhere in the mall.")
+####            st.write("\"I-is someone there? H-hello?\"")
+####            st.write("You turn the corner to see a man trapped underneath of a shelf.")
+####            st.write("\"Oh thank god! Someone that isn\'t a zombie. Can you help me out?\"")
+##            #survivor_event()
+##            
 
             
             
@@ -303,8 +318,25 @@ def main():
             can_move = hoard_event()
             if not can_move:
                 return
+
+
+
+        if st.session_state.current_room in "Drytron Mall": #and not st.session_state.survivor_event:
+            st.write(f'{rooms["Drytron Mall"]["survivor"]}')
+            #st.write(f'{rooms["Drytron Mall"]["survivor_event"]}')
+
+            # if the user beats the survivor event
+           # rooms["Drytron Mall"]["survivor_event"] = False
+            # if the user does not beat the survivor event
+
+##            st.write("You hear someone yelling for help somewhere in the mall.")
+##            st.write("\"I-is someone there? H-hello?\"")
+##            st.write("You turn the corner to see a man trapped underneath of a shelf.")
+##            st.write("\"Oh thank god! Someone that isn\'t a zombie. Can you help me out?\"")
+            survivor_event()
             
-##        if (st.session_state.current_room == "Drytron Mall" or st.session_state.current_room == "Vigil Hospital" or st.session_state.current_room == "Easy Apartment") and not st.session_state.survivor_event:
+            
+##        if (st.session_state.current_room == "Drytron Mall" or st.session_state.current_room == "Virgil Hospital" or st.session_state.current_room == "Easy Apartment") and not st.session_state.survivor_event:
 ##            can_move = survivor_event()
 ##            if not can_move:
 ##                return
