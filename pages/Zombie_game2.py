@@ -1,7 +1,6 @@
 import streamlit as st
 import random
 
-
 class MiniGame:
     """Base class for mini-games"""
 
