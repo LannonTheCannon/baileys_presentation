@@ -1,8 +1,10 @@
 import streamlit as st
 import random
 
+# MiniGame Class
+# Base/Blueprint of all minigames
+
 class MiniGame:
-    """Base class for mini-games"""
 
     def __init__(self):
         self.is_complete = False
@@ -17,9 +19,14 @@ class MiniGame:
     def update(self):
         pass
 
+# ZombieHordeGame Class (Child of MiniGame class)
+# Minigame for sneaking past zombie horde
+# intialize_state
+# render
+# update
+
 
 class ZombieHordeGame(MiniGame):
-    """Mini-game for sneaking past zombie horde"""
 
     def __init__(self):
         super().__init__()
@@ -81,9 +88,12 @@ class ZombieHordeGame(MiniGame):
         state["last_guess"] = guess
         st.session_state[self.state_key] = state
 
+# SurvivorEvent Class
+# Class to handle survivor encounters
+# No children?
+# Render
 
 class SurvivorEvent:
-    """Class to handle survivor encounters"""
 
     def __init__(self, survivor_name, time_cost=None):
         self.survivor_name = survivor_name
@@ -108,6 +118,16 @@ class SurvivorEvent:
                 return True
         return False
 
+# ZombieGame Class
+# Main class runs everything
+# No children
+# initalize_game_state
+# initialize_rooms
+# handle_movement
+# handle_survivor_event
+# handle_minigame
+# show_status
+# run
 
 class ZombieGame:
     def __init__(self):
@@ -223,6 +243,7 @@ class ZombieGame:
         return None
 
     def show_status(self):
+        st.image("./images/Zombie_Game_map.png")
         st.write("-" * 80)
         current_room = st.session_state.game_state["current_room"]
         st.write(f"Location: {current_room}")
@@ -238,6 +259,7 @@ class ZombieGame:
             st.error("Game Over!")
             if st.button("Restart Game"):
                 del st.session_state.game_state
+                del st.session_state.state_key
                 st.rerun()
             return
 
@@ -270,6 +292,8 @@ class ZombieGame:
             st.session_state.game_state["is_game_over"] = True
             st.rerun()
 
+# Main
+# Starts the game
 
 def main():
     st.title("Zombie Escape")
@@ -282,7 +306,6 @@ def main():
 
         Your car won't start - you'll have to make it to the evacuation point on foot!
         """)
-        st.image("./images/Zombie_Game_map.png")
         st.session_state.game_initialized = True
 
     game = ZombieGame()
