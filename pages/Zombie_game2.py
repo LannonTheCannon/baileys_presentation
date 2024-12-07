@@ -95,11 +95,20 @@ class ZombieHordeGame(MiniGame):
 
 class SurvivorEvent:
 
-    def __init__(self, survivor_name):
+    def __init__(self, survivor_name,time_cost = None):
+        self.state_key = f'survivor_{survivor_name}_state'
         self.survivor_name = survivor_name
-        self.time_cost = random.randint(1, 3)
+##        self.time_cost = random.randint(1, 3)
         self.is_complete = False
         self.was_successful = False
+        self.init_state(time_cost)
+
+    def init_state(self,time_cost):
+        if self.state_key not in st.session_state:
+            st.session_state[self.state_key] = {
+                'time_cost': time_cost if time_cost is not None else random.randint(1,3)
+            }
+        self.time_cost = st.session_state[self.state_key]["time_cost"]
 
     def render(self):
         st.write(f"You encounter {self.survivor_name} who needs help!")
@@ -156,8 +165,8 @@ class ZombieGame:
             'Drytron Mall': {
                 'exits': {
                     'left': 'Camp Goodman',
-                    'right': 'parking lot',
-                    'down': 'The Suburbs'
+                    'right': 'Fletcher\'s Car Center',
+                    'down': 'Amazement Land'
                 },
                 'description': "You walk past the empty stalls of the once popular mall.",
                 'image': "./images/Drytronmall1.jpg",
@@ -167,12 +176,28 @@ class ZombieGame:
                     'description': "You hear someone calling for help from inside the mall."
                 }
             },
+            'Fletcher\'s Car Center': {
+                'exits': {
+                    'left': 'Drytron Mall',
+                    'down':'The Suburbs'          
+                },
+                'description': "A once peaceful campground, now eerily quiet.",
+                'image': "./images/Contacts_gmail.png"
+            },
+            'Amazement Land': {
+                'exits': {
+                    'right':'The Suburbs',
+                    'up':'Drytron Mall'
+                    },
+                'description': "A once peaceful campground, now eerily quiet.",
+                'image': "./images/Contacts_github.png"
+            },
             'The Suburbs': {
                 'exits': {
                     'up': 'Drytron Mall',
-                    # 'down': "Schuyler's Seaside Saloon",
-                    # 'left': 'Amazement Land',
-                    # 'right': 'Virgil Hospital'
+                     'down': 'Schuyler\'s Seaside Saloon',
+                     'left': 'Amazement Land',
+                     'right': 'Virgil Hospital'
                 },
                 'description': "Abandoned houses line the streets. A horde of zombies blocks your path.",
                 'image': "./images/Contacts_github.png",
@@ -182,9 +207,45 @@ class ZombieGame:
                     'failure_message': "The zombies spot you. Game Over!",
                     'success_message': "You successfully sneak past the horde!"
                 }
-            }
-            # ... other rooms ...
-        }
+            },
+            'Virgil Hospital': {
+                'exits': {
+                    'left':'The Suburbs',
+                    'down':'Easy Apartment'
+                    },
+                'description': "A once peaceful campground, now eerily quiet.",
+                'image': "./images/Contacts_github.png",
+                'event': {
+                    'type': 'survivor',
+                    'survivor': SurvivorEvent("Alexander"),
+                    'description': "You hear labored breathing in a nearby room in the hospital ward."
+                }
+        },
+            'Schuyler\'s Seaside Saloon': {
+                'exits': {
+                    'up': 'The Suburbs',
+                    'right':'Easy Apartment'          
+                },
+                'description': "A once peaceful campground, now eerily quiet.",
+                'image': "./images/Contacts_github.png"
+            },
+            'Easy Apartment': {
+                'exits': {
+                    'up':'Virgil Hospital',
+                    'left':'Schuyler\'s Seaside Saloon',
+                    'right':'BKT Airport'
+                    },
+                'description': "A once peaceful campground, now eerily quiet.",
+                'image': "./images/Contacts_github.png",
+                'event': {
+                    'type': 'survivor',
+                    'survivor': SurvivorEvent("David"),
+                    'description': "You hear a baby crying in a nearby room"
+                }
+        },
+    } # the end
+            
+            
 
     def handle_movement(self, direction):
         current = st.session_state.game_state["current_room"]
