@@ -1,6 +1,24 @@
 import streamlit as st
 import random
 
+
+# ending event
+# cutscene about the people you saved
+# losing event
+#
+# if you run out of time there should be something that plays a cutscene about that
+# adds on text from the characters you saved
+# if you saved drew you would get drew's text
+# if you didnt save alexander you wouldnt get his text
+#
+# Lose time if you fail a question in horde event
+# time - questions wrong / 2 (or floor divide)
+#
+# Skipping places
+# After completing survivor event
+# maybe after the hoard event
+
+
 # MiniGame Class
 # Base/Blueprint of all minigames
 
@@ -243,6 +261,18 @@ class ZombieGame:
                     'description': "You hear a baby crying in a nearby room"
                 }
         },
+            'BKT Airport': {
+                'exits': {},
+                'description': "A once peaceful campground, now eerily quiet.",
+                'image': "./images/Contacts_github.png"
+                # event to handle the end of the game
+                # You interact with the people you saved
+##                'event': {
+##                    'type': 'survivor',
+##                    'survivor': SurvivorEvent("Drew"),
+##                    'description': "You hear someone calling for help from inside the mall."
+##                }
+            }
     } # the end
             
             
