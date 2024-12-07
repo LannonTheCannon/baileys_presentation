@@ -87,9 +87,18 @@ class SurvivorEvent:
 
     def __init__(self, survivor_name, time_cost=None):
         self.survivor_name = survivor_name
-        self.time_cost = time_cost or random.randint(1, 3)
+        self.state_key = f"survivor_{survivor_name}_state"
+        #self.time_cost = time_cost or random.randint(1, 3)
         self.is_complete = False
         self.was_successful = False
+        self.initialize_state(time_cost)
+
+    def initialize_state(self, time_cost):
+        if self.state_key not in st.session_state:
+            st.session_state[self.state_key] = {
+                "time_cost": time_cost if time_cost is not None else random.randint(1, 3)
+            }
+        self.time_cost = st.session_state[self.state_key]["time_cost"]
 
     def render(self):
         st.write(f"You encounter {self.survivor_name} who needs help!")
