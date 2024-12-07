@@ -95,9 +95,9 @@ class ZombieHordeGame(MiniGame):
 
 class SurvivorEvent:
 
-    def __init__(self, survivor_name, time_cost=None):
+    def __init__(self, survivor_name):
         self.survivor_name = survivor_name
-        self.time_cost = time_cost or random.randint(1, 3)
+        self.time_cost = random.randint(1, 3)
         self.is_complete = False
         self.was_successful = False
 
@@ -206,6 +206,7 @@ class ZombieGame:
                 st.write(room['event']['description'])
                 if survivor.render():  # If the event is complete
                     if survivor.was_successful:
+                        st.write(f'{type(survivor)}')
                         st.session_state.game_state["time_remaining"] -= survivor.time_cost
                         st.session_state.game_state["survivors_saved"].add(survivor.survivor_name)
                         st.success(f"You saved {survivor.survivor_name}!")
