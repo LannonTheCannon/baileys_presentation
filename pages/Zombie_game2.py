@@ -1,5 +1,5 @@
 import streamlit as st
-import random
+import secrets
 
 
 # ending event
@@ -53,7 +53,7 @@ class ZombieHordeGame(MiniGame):
     def initialize_state(self):
         if self.state_key not in st.session_state:
             st.session_state[self.state_key] = {
-                "secret_number": random.randint(1, 40),
+                "secret_number": secrets.SystemRandom().randint(1, 40),
                 "guesses_remaining": 8,
                 "last_guess": None,
                 "message": None
@@ -124,7 +124,7 @@ class SurvivorEvent:
     def init_state(self,time_cost):
         if self.state_key not in st.session_state:
             st.session_state[self.state_key] = {
-                'time_cost': time_cost if time_cost is not None else random.randint(1,3)
+                'time_cost': time_cost if time_cost is not None else secrets.SystemRandom().randint(1,3)
             }
         self.time_cost = st.session_state[self.state_key]["time_cost"]
 
