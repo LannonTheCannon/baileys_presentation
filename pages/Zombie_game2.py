@@ -5,6 +5,7 @@ class MiniGame:
     def __init__(self):
         self.is_complete = False
         self.was_successful = False
+        
 
     def initialize_state(self):
         pass
@@ -17,9 +18,9 @@ class MiniGame:
 
 
 class ZombieHordeGame(MiniGame):
-    def __init__(self):
+    def __init__(self,state_key = "horde_game_state"):
         super().__init__()
-        self.state_key = "horde_game_state"
+        self.state_key = state_key
 
     def initialize_state(self):
         if self.state_key not in st.session_state:
@@ -37,6 +38,7 @@ class ZombieHordeGame(MiniGame):
         st.write("A massive horde of zombies blocks the street ahead.")
         st.write("You need to move **very** carefully to sneak past them...")
         st.write(f"You have **{state['guesses_remaining']}** chances to move quietly.")
+##        st.write("Pick a number between 1 and 40 to sneak past the horde")
 
         if state["message"]:
             if "success" in state["message"]:
@@ -49,7 +51,7 @@ class ZombieHordeGame(MiniGame):
         col1, col2 = st.columns([3, 1])
         with col1:
             guess = st.number_input(
-                "Pick a number between 1 and 40:",
+                "Pick a number between 1 and 40 to continue:",
                 min_value=1, max_value=40,
                 key="horde_guess"
             )
@@ -163,18 +165,76 @@ class ZombieGame:
             "Fletcher's Car Center": {
                 'exits': {
                     'left': 'Drytron Mall',
+                    'down': 'The Suburbs'
                 },
                 'description': "An auto repair shop littered with wrenches. Undead lurk near the lifts.",
                 'image': "./images/Contacts_github.png",
                 'event': {
                     'type': 'minigame',
-                    'game': ZombieHordeGame(),
+                    'game': ZombieHordeGame(state_key = "zombie_horde_car_center"),
                     'success_message': "You quietly fix the car's ignition and slip away!",
                     'failure_message': "Your clumsy repairs make too much noise... the horde arrives!",
                     'description': "Try to guess how quietly you can fix the car while zombies lurk outside."
                 }
             },
-            # ... Imagine other rooms here ...
+            'Amazement Land': {
+                'exits': {
+                    'up':'Drytron Mall',
+                    'right': 'The Suburbs'
+                },
+                'description': "A work in progress theme park stands infront of you.",
+                'image': "./images/Contacts_gmail.png"
+            },
+            "The Suburbs": {
+                'exits': {
+                    'up': "Fletcher's Car Center",
+                    'down': "Schuyler's Seaside Saloon",
+                    'left': 'Amazement Land',
+                    'right': 'Virgil Hospital'
+                },
+                'description': "You see a street filled with empty cars and open home doors",
+                'image': "./images/Contacts_gmail.png",
+                'event': {
+                    'type': 'minigame',
+                    'game': ZombieHordeGame(state_key = "zombie_horde_suburbs"),
+                    'success_message': "You quietly sneak past the horde of zombie",
+                    'failure_message': "You unsuccessfully attempted to sneak past the horde", # reword later
+                    'description': "Sneak past the horde of zombies." # reword later
+                }
+            },
+            "Schuyler's Seaside Saloon": {
+                'exits': {
+                    'up': 'The Suburbs',
+                    'right': 'Easy Apartment'
+                },
+                'description': "One of the most popular spots by the beach is now empty",
+                'image': "./images/Contacts_github.png"
+            },
+            'Virgil Hospital': {
+                'exits': {
+                    'left': 'The Suburbs',
+                    'down': 'Easy Apartment'
+                },
+                'description': "Something something hospital.",
+                'image': "./images/Drytronmall1.jpg",
+                'event': {
+                    'type': 'survivor',
+                    'survivor': SurvivorEvent(
+                        "Alex",
+                        cutscene_text="Alex: Thank you for saving me! I'm a former military medic, I can help treat injuries."
+                    ),
+                    'description': "You hear someone calling for help from inside the hospital."
+                }
+            },
+            'Easy Apartment': {
+                'exits': {
+                    'up':'Virgil Hospital',
+                    'left': "Schuyler's Seaside Saloon",
+                    'right': 'The Suburbs'
+                }, # Add a new event???
+                'description': "You heard about this place from an ad.",
+                'image': "./images/Contacts_gmail.png"
+            },
             'BKT Airport': {
                 'exits': {},
                 'description': "You've reached the evacuation point.",
