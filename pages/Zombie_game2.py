@@ -230,7 +230,7 @@ class ZombieGame:
                 'exits': {
                     'up':'Virgil Hospital',
                     'left': "Schuyler's Seaside Saloon",
-                    'right': 'The Suburbs'
+                    'right': 'Camp Goodman'
                 }, # Add a new event???
                 'description': "You heard about this place from an ad.",
                 'image': "./images/Contacts_gmail.png"
@@ -341,7 +341,8 @@ class ZombieGame:
             st.session_state.game_state["current_room"] = self.rooms[current]['exits'][direction]
             st.session_state.game_state["time_remaining"] -= 1
             return True
-        return False
+        else:
+            return False
 
     def show_ending_cutscene(self):
         ending_type = st.session_state.game_state["game_ending"]
@@ -392,7 +393,7 @@ class ZombieGame:
                     st.rerun()
 
         # Text input movement
-        move = st.text_input("Enter your move (e.g., 'go left', 'go right')", key="move_input")
+        move = st.text_input("Enter your move (e.g., 'go left', 'go right')", key="move_input",value=None)
         if move:
             parts = move.lower().split()
             if len(parts) == 2 and parts[0] == "go":
@@ -400,6 +401,11 @@ class ZombieGame:
                     st.rerun()
                 else:
                     st.error("You can't go that way!")
+            
+            
+            
+            
+                    
 
         # Check win/lose conditions
         if current_room == "BKT Airport":
